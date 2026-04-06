@@ -152,6 +152,9 @@ with gr.Blocks(title="✈️ AI Flight Search") as demo:
         outputs=[status, output],
     )
 
+# ASGI app for Vercel / uvicorn (`demo.app` is set when the Blocks context exits)
+app = demo.app
+
 
 if __name__ == "__main__":
     demo.launch(

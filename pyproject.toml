@@ -7,9 +7,13 @@ requires-python = ">=3.10,<3.14"
 dependencies = [
     "crewai[tools]==1.12.2",
     "langchain-apify>=0.1.6",
+    "gradio>=4.0.0",
+    "python-dotenv>=1.0.0",
 ]
 
 [project.scripts]
+# Vercel Python runtime looks for this entry (ASGI app: module `app`, object `app`)
+app = "app:app"
 flight_agent = "flight_agent.main:run"
 run_crew = "flight_agent.main:run"
 train = "flight_agent.main:train"
