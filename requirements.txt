@@ -1,0 +1,5 @@
+crewai[tools]>=0.80.0
+crewai-tools>=0.14.0
+python-dotenv>=1.0.0
+gradio>=4.0.0
+langchain-apify>=0.1.0

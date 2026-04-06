@@ -1,0 +1,45 @@
+scrape_flights_task:
+  description: >
+    Use the Apify Google Flights scraper tool to search for flights.
+    Origin: {origin}
+    Destination: {destination}
+    Departure date: {departure_date}
+    Return date (if any): {return_date}
+    Number of passengers: {passengers}
+    Cabin class: {cabin_class}
+
+    Return a structured list including: airline, price, departure time,
+    arrival time, duration, number of stops, and booking URL.
+  expected_output: >
+    A structured JSON-style list of at least 5 flights with all fields
+    populated. Sort by price ascending.
+  agent: flight_scraper
+
+web_research_task:
+  description: >
+    Use Tavily to search the web for the cheapest and best-reviewed
+    flight options for:
+    Route: {origin} to {destination}
+    Dates: {departure_date} to {return_date}
+    Look for promotions, fare alerts, and any airline sales currently running.
+  expected_output: >
+    A bullet-point summary of the top 5 deals found online, including
+    source URLs, prices, and any special conditions or catches.
+  agent: web_researcher
+
+synthesise_recommendations_task:
+  description: >
+    Combine the structured scraper data and the web research findings.
+    Produce a final ranked recommendation of the TOP 3 flight options,
+    balancing price, travel time, number of stops, and reliability.
+    Highlight the single best pick with a clear rationale.
+  expected_output: >
+    A markdown report with:
+    1. A "Best Overall Pick" section with full details and rationale.
+    2. A "Top 3 Options" comparison table (price, duration, stops, airline).
+    3. A "Tips & Caveats" section from the web research.
+    4. Write the result to markdown file.
+  agent: flight_manager
+  context:
+    - scrape_flights_task
+    - web_research_task
